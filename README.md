@@ -1,2 +1,3 @@
 # PA03
-group by Zone Zhang and Yuxuan Xiong
+Programming Assignment 03 of COSI 103A
+Group by Yuxuan Xiong and Zone Zhang
