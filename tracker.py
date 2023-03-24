@@ -19,17 +19,17 @@ def print_menu():
             '''
             )
 
-def print_todos(todos):
-    ''' print the todo items '''
-    if len(todos)==0:
-        print('no tasks to print')
+def print_trans(trans):
+    ''' print the transactions '''
+    if len(trans)==0:
+        print('no transaction to print')
         return
     print('\n')
-    print("%-10s %-10s %-30s %-10s"%('item #','title','desc','completed'))
+    print("%-10s %-10s %-10s %-10s %-10s"%('item #','amount','category','date','description'))
     print('-'*40)
-    for item in todos:
-        values = tuple(item.values()) #(rowid,title,desc,completed)
-        print("%-10s %-10s %-30s %2d"%values)
+    for item in trans:
+        values = tuple(item.values()) 
+        print("%-10s %-10s %-10s %-10s %-10s"%values)
 
 def process_args(arglist):
     ''' examine args and make appropriate calls to transaction'''
@@ -37,9 +37,9 @@ def process_args(arglist):
     if arglist==[]:
         print_menu()
     elif arglist[0]=="show transactions":
-        print_todos(todos = transaction.selectAll())
+        print_trans(trans = transaction.show_tran())
     elif arglist[0]=="showcomplete":
-        print_todos(transaction.selectCompleted())
+        print_trans(transaction.selectCompleted())
     elif arglist[0]=='add transaction':
         if len(arglist)!=3:
             print_menu()

@@ -2,19 +2,19 @@ import sqlite3
 import os
 
 def toDict(t):
-    ''' t is a tuple (rowid,title, desc,completed)'''
+    ''' t is a tuple (rowid, amount, category, date, description)'''
     print('t='+str(t))
-    todo = {'rowid':t[0], 'title':t[1], 'desc':t[2], 'completed':t[3]}
-    return todo
+    tran = {'rowid':t[0], 'amount':t[1], 'category':t[2], 'date':t[3], 'description' :t[4]}
+    return tran
 
 class Transaction():
     def __init__(self):
         self.runQuery('''CREATE TABLE IF NOT EXISTS
-                    (item int, amount int, category text, date text, descripition text)''',())
+                    (amount int, category text, date text, descripition text)''',())
     
     def show_tran(self):
         ''' return all of the uncompleted tasks as a list of dicts.'''
-        return self.runQuery("SELECT * from tracker where",())
+        return self.runQuery("SELECT * from tracker",())
 
     def selectAll(self):
         ''' return all of the tasks as a list of dicts.'''
@@ -26,7 +26,7 @@ class Transaction():
 
     def add(self,item):
         ''' create a todo item and add it to the todo table '''
-        return self.runQuery("INSERT INTO tracker VALUES(?,?,?,?,?)",(item['item'],item['amount'],item['category'],item['date'],item['description']))
+        return self.runQuery("INSERT INTO tracker VALUES(?,?,?,?)",(item['amount'],item['category'],item['date'],item['description']))
 
     def delete(self,rowid):
         ''' delete a todo item '''
@@ -38,7 +38,7 @@ class Transaction():
 
     def runQuery(self,query,tuple):
         ''' return all of the uncompleted tasks as a list of dicts.'''
-        con= sqlite3.connect(os.getenv('HOME')+'/todo.db')
+        con= sqlite3.connect(os.getenv('HOME')+'/transactions.db')
         cur = con.cursor() 
         cur.execute(query,tuple)
         tuples = cur.fetchall()
