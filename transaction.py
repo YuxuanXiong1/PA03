@@ -7,10 +7,10 @@ def toDict(t):
     todo = {'rowid':t[0], 'title':t[1], 'desc':t[2], 'completed':t[3]}
     return todo
 
-class TodoList():
+class transaction():
     def __init__(self):
-        self.runQuery('''CREATE TABLE IF NOT EXISTS todo
-                    (title text, desc text, completed int)''',())
+        self.runQuery('''CREATE TABLE IF NOT EXISTS
+                    (item int, amount int, category text, date text, descripition text)''',())
     
     def selectActive(self):
         ''' return all of the uncompleted tasks as a list of dicts.'''
