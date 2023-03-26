@@ -3,7 +3,6 @@ import sqlite3
 import os
 def to_dict(tupl):
     ''' t is a tuple (rowid, amount, category, date, description)'''
-    print('t='+str(tupl))
     todo = {'rowid':tupl[0], 'amount':tupl[1], 'category':tupl[2],
             'date':tupl[3], 'description':tupl[4]}
     return todo
