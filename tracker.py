@@ -1,10 +1,7 @@
-
-from transaction import Transaction
+'''this is the method which give user a menu and user can modify
+things through this method'''
 import sys
-
-
-# here are some helper functions ...
-
+from transaction import Transaction
 def print_usage():
     ''' print an explanation of how to use this command '''
     print('''menu:
@@ -19,7 +16,6 @@ def print_usage():
             8. print this menu (enter print)
             '''
             )
-
 def print_todos(todos):
     ''' print the todo items '''
     if len(todos)==0:
@@ -31,55 +27,48 @@ def print_todos(todos):
     for item in todos:
         values = tuple(item.values()) #(rowid,title,desc,completed)
         print("%-10s %-10s %-15s %-15s %-20s"%values)
-
 def process_args(arglist):
+    '''this is a method which will process user's input and give respond'''
     transaction = Transaction()
     if arglist==[]:
         print_usage()
     elif arglist[0]=="show":
-        print_todos(todos = transaction.show())    
+        print_todos(todos = transaction.show())
     elif arglist[0]=='add':
         if len(arglist)!=5:
             print_usage()
         else:
-            todo = {'amount':arglist[1],'category':arglist[2],'date':arglist[3],'description':arglist[4]}
+            todo = {'amount':arglist[1],'category':arglist[2],
+                    'date':arglist[3],'description':arglist[4]}
             transaction.add(todo)
-        pass
     elif arglist[0]=='delete':
         if len(arglist)!= 2:
             print_usage()
         else:
             transaction.delete(arglist[1])
     elif arglist[0]=="date":
-        print_todos(todos = transaction.dateOrder())    
+        print_todos(todos = transaction.date_order())
     elif arglist[0]=="month":
-        print_todos(todos = transaction.monthOrder())
+        print_todos(todos = transaction.month_order())
     elif arglist[0]=="year":
-        print_todos(todos = transaction.yearOrder())      
+        print_todos(todos = transaction.year_order())
     elif arglist[0]=="category":
-        print_todos(todos = transaction.categoryOrder())    
+        print_todos(todos = transaction.category_order())
     elif arglist[0] == "print":
         print_usage()
     elif arglist[0] == "quit":
         sys.exit(0)
-        sys.exit(1)
-
     else:
         print(arglist,"is not implemented")
         print_usage()
-
-
 def toplevel():
     ''' read the command args and process them'''
     if len(sys.argv)==1:
-        # they didn't pass any arguments, 
-        # so prompt for them in a loop
         print_usage()
         args = []
         while args!=['']:
             args = input("command> ").split(' ')
             if args[0]=='add':
-                # join everyting after the name as a string
                 i = 5
                 while i < len(args):
                     args[4] = args[4] + ' ' + args[i]
@@ -88,11 +77,7 @@ def toplevel():
             process_args(args)
             print('-'*70+'\n'*3)
     else:
-        # read the args and process them
         args = sys.argv[1:]
         process_args(args)
         print('-'*70+'\n'*3)
-
-
-
 toplevel()
