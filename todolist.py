@@ -14,7 +14,7 @@ import os
 def toDict(t):
     ''' t is a tuple (rowid, amount, category, date, description)'''
     print('t='+str(t))
-    todo = {'rowid':t[0], 'amount':t[1], 'category':t[2], 'date':t[3], 'description' :t[4]}
+    todo = {'rowid':t[0], 'amount':t[1], 'category':t[2], 'date':t[3], 'description':t[4]}
     return todo
 
 class TodoList():
@@ -52,7 +52,7 @@ class TodoList():
 
     def runQuery(self,query,tuple):
         ''' return all of the uncompleted tasks as a list of dicts.'''
-        con= sqlite3.connect(os.getenv('HOME')+'/ootodo.db')
+        con= sqlite3.connect(os.getenv('HOME')+'/otodo.db')
         cur = con.cursor()
         cur.execute(query,tuple)
         tuples = cur.fetchall()

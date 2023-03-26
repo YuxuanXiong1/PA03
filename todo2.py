@@ -1,28 +1,3 @@
-#! /opt/miniconda3/bin/python3
-'''
-todo2 is an app that maintains a todo list
-just as with the todo code in this folder.
-but it also uses an Object Relational Mapping (ORM)
-to abstract out the database operations from the
-UI/UX code.
-The ORM, TodoList, will map SQL rows with the schema
-    (rowid,title,desc,completed)
-to Python Dictionaries as follows:
-(5,'commute','drive to work',false) <-->
-{rowid:5,
- title:'commute',
- desc:'drive to work',
- completed:false)
- }
-In place of SQL queries, we will have method calls.
-This app will store the data in a SQLite database ~/todo.db
-Recall that sys.argv is a list of strings capturing the
-command line invocation of this program
-sys.argv[0] is the name of the script invoked from the shell
-sys.argv[1:] is the rest of the arguments (after arg expansion!)
-Note the actual implementation of the ORM is hidden and so it 
-could be replaced with PostgreSQL or Pandas or straight python lists
-'''
 
 from todolist import TodoList
 import sys
@@ -35,7 +10,7 @@ def print_usage():
     print('''menu:
             0. quit 
             1. show transactions (enter show)
-            2. add transaction (enter add)
+            2. add transaction (enter add, date fomat: YYYY-MM-DD)
             3. delete transaction (enter delete)
             4. summarize transactions by date (enter date)
             5. summarize transactions by month (enter month)
@@ -85,7 +60,11 @@ def process_args(arglist):
         print_todos(todos = todolist.yearOrder())      
     elif arglist[0]=="category":
         print_todos(todos = todolist.categoryOrder())    
-
+    elif arglist[0] == "print":
+        print_usage()
+    elif arglist[0] == "quit":
+        sys.exit(0)
+        sys.exit(1)
 
     else:
         print(arglist,"is not implemented")
@@ -103,6 +82,10 @@ def toplevel():
             args = input("command> ").split(' ')
             if args[0]=='add':
                 # join everyting after the name as a string
+                i = 5
+                while i < len(args):
+                    args[4] = args[4] + args[i]
+                    i = i + 1
                 args = ['add',args[1],args[2],args[3],args[4]]
             process_args(args)
             print('-'*70+'\n'*3)
