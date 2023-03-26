@@ -23,7 +23,7 @@ def returned_dicts(tuples):
 
 @pytest.fixture
 def todo_path(tmp_path):
-    yield tmp_path / 'otodo.db'
+    yield tmp_path / 'qotodo.db'
 
 @pytest.fixture(autouse=True)
 def todolist(todo_path,tuples):
@@ -31,12 +31,12 @@ def todolist(todo_path,tuples):
     con= sqlite3.connect(todo_path)
     cur = con.cursor()
     cur.execute('''CREATE TABLE IF NOT EXISTS todo
-                    (title text, desc text, completed int)''')
+                    (amount int, category text, date text, description text)''')
     for i in range(len(tuples)):
         cur.execute('''insert into todo values(?,?,?,?)''',tuples[i])
     # create the todolist database
     con.commit()
-    td = Transaction(todo_path)
+    td = Transaction()
     yield td
     cur.execute('''drop table todo''')
     con.commit()
