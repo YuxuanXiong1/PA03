@@ -3,8 +3,8 @@ import pytest
 
 def test_repr():
     ''' constructor should create a printable object '''
-    t_quat = Transaction(1,2,3,4)
-    expected = 'Transaction(1, 2, 3, 4)'
+    t_quat = Transaction(10, 'apple', '2021/09/26', 'this is apple')
+    expected = 'Transaction(10, \'apple\', \'2021/09/26\', \'this is apple\')'
     assert t_quat.__repr__()==expected
 
 def test_add():
