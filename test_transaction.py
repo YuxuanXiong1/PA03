@@ -1,17 +1,15 @@
 from transaction import Transaction
 import pytest
 
-def test_repr():
-    ''' constructor should create a printable object '''
-    t_quat = Transaction(10, 'apple', '2021/09/26', 'this is apple')
-    expected = 'Transaction(10, \'apple\', \'2021/09/26\', \'this is apple\')'
-    assert t_quat.__repr__()==expected
-
 def test_add():
-    q1 = Transaction(1,2,3,4)
-    q2 = Transaction(2,4,6,8)
-    q3 = Transaction(3,6,9,12)
-    assert q1+q2==q3
+    ''' constructor should create a printable object '''
+    tran = Transaction()
+    todo = {'amount':10,'category':'apple',
+                    'date':'2021/09/26','description':'this is apple'}
+    tran.add(todo)
+    t_quat = tran
+    assert t_quat== <transaction.Transaction object at 0x7f2b3b386ce0>
+
 
 def test_mul():
     q1 = Transaction(0,1,2,3)
